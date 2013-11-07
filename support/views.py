@@ -28,9 +28,10 @@ class UploadFileForm(forms.Form):
     file  = forms.FileField()
 
 
-    def clean(self):
-        super(UploadFileForm,self).clean()
+    def clean_file(self):
+        
         form_data = self.cleaned_data
+
         reader = csv.DictReader(form_data['file'], delimiter=";")
         percorsi = []
         try:
@@ -42,7 +43,7 @@ class UploadFileForm(forms.Form):
             return form_data
 
         percorsi_set = list(set(percorsi))
-        print percorsi_set
+        #print percorsi_set
         
         if len(percorsi_set) is not 1:
             self._errors["file"] = self.error_class(["Errore file di input:percorsi diversi"])            
