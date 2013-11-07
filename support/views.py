@@ -60,6 +60,8 @@ class UploadFileForm(forms.Form):
             pos = get_stop_position(percorso, row['Fermata'])
             if pos is None:
                 self._errors["file"] = self.error_class(["Errore file di input: fermata %s non trovata" % row['Fermata']])
+                del form_data['file']
+                return form_data
 
 
 
