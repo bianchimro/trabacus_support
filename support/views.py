@@ -56,6 +56,12 @@ class UploadFileForm(forms.Form):
             del form_data['file']
             return form_data
 
+        for row in reader:
+            pos = get_stop_position(percorso, row['Fermata'])
+            if pos is None:
+                self._errors["file"] = self.error_class(["Errore file di input: fermata %s non trovata" % row['Fermata']])
+
+
 
 
 def get_stop_position(track_id, stop_id):
@@ -111,7 +117,7 @@ class CSVProcessView(FormView):
                 last_stops_added += 1
             else:
                 copied = deepcopy(data[last_stops_added])
-                for key in ['Stop', 'Start']:
+                for key in ['Stop', 'Start', 'N']:
                     del copied[key]
                 copied['Fermata'] = item['id_fermata']
                 data_shadow.append(copied)
