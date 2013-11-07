@@ -29,6 +29,7 @@ class UploadFileForm(forms.Form):
 
 
     def clean(self):
+        super(UploadFileForm,self).clean()
         form_data = self.cleaned_data
         reader = csv.DictReader(form_data['file'], delimiter=";")
         percorsi = []
