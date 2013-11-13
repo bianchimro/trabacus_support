@@ -119,7 +119,7 @@ class CSVProcessView(FormView):
                 last_stops_added += 1
             else:
                 copied = deepcopy(data[last_stops_added])
-                for key in ['Stop', 'Start', 'N']:
+                for key in ['Saliti', 'Scesi', 'N']:
                     del copied[key]
                 copied['Fermata'] = item['id_fermata']
                 data_shadow.append(copied)
